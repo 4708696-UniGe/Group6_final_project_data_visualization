@@ -1,3 +1,39 @@
 h1 {
     text-align: center;
 }
+
+body {
+    font-family: "Fira Sans";
+}
+
+.legend {
+    font-size: 1.4rem;
+}
+
+.tooltip {
+    text-align: left;
+    padding: 10px;
+    background-color: #6b747c;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+#slider-time {
+    position: relative;
+    left: 50px;
+}
+
+.axis text,
+.slider text {
+    font-size: 15px;
+}
+
+.choropleth_map {
+
+}
+
+.explanatory_text {
+    text-align: center;
+}
