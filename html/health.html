@@ -71,5 +71,265 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script>
+    //1.set dimensions of svg
+    const wsvg = 95;//using percentage relative to the container div
+    const hsvg = 95;//using percentage relative to the container div
+
+    //2.set dimensions within svg following Mike Bostok's convention
+    const wtot = 1600;
+    const htot = 900;
+    const margin = { top: 100, right: 80, bottom: 90, left: 80 },
+    width = wtot - margin.left - margin.right,
+    height = htot - margin.top - margin.bottom;
+
+    const years = ["2016", "2017", "2018", "2019", "2020"];
+
+    const svg1 = d3.select("#line1")
+        .attr("width", wsvg + "%")
+        .attr("height", hsvg + "%")
+        .attr("viewBox", "0 0 " + wtot + " " + htot)
+        .append("g")
+        .attr("transform",
+            `translate(${margin.left},${margin.top})`)
+        // Add Y axis
+        const y1 = d3.scaleLinear()
+            .domain([0, 70])
+            .range([height, 0]);
+
+        var yAxisGenerator1 = d3.axisLeft(y1);
+
+        var yAxis1 = svg1.append("g")
+            .call(yAxisGenerator1);
+
+        yAxis1.selectAll(".tick text")
+            .attr("font-size", "25")
+
+        // Add X axis
+        const x1 = d3.scaleTime()
+            .domain([years[0], years[4]])
+            .range([0, width]);
+
+        var xAxisGenerator1 = d3.axisBottom(x1).tickFormat(d3.format("d"));
+
+        var xAxis1 = svg1.append("g")
+            .attr("class", "xaxis")
+            .call(xAxisGenerator1)
+            .attr("transform", `translate(0,${height})`);
+
+        xAxis1.selectAll(".tick text")
+            .attr("font-size", "20")
+            .attr("transform", "rotate(-45)translate(-50,0)");
+
+
+    const svg2 = d3.select("#line2")
+        .attr("width", wsvg + "%")
+        .attr("height", hsvg + "%")
+        .attr("viewBox", "0 0 " + wtot + " " + htot)
+        .append("g")
+        .attr("transform",
+            `translate(${margin.left},${margin.top})`)
+
+        // Add Y axis
+        const y2 = d3.scaleLinear()
+            .domain([5, 60])
+            .range([height, 0]);
+
+        var yAxisGenerator2 = d3.axisLeft(y2);
+
+        var yAxis2 = svg2.append("g")
+            .call(yAxisGenerator2);
+
+        yAxis2.selectAll(".tick text")
+            .attr("font-size", "25");
+
+        var list2 = d3.select('#years'); // TODO da fare dropdown
+
+        // Add X axis
+        const x2 = d3.scaleTime()
+            .domain([years[0], years[4]])
+            .range([0, width]);
+
+        var xAxisGenerator2 = d3.axisBottom(x2).tickFormat(d3.format("d"));
+
+        var xAxis2 = svg2.append("g")
+            .attr("class", "xaxis")
+            .call(xAxisGenerator2)
+            .attr("transform", `translate(0,${height})`);
+
+        xAxis2.selectAll(".tick text")
+            .attr("font-size", "20")
+            .attr("transform", "rotate(-45)translate(-50,0)");
+
+
+    const svg3 = d3.select("#line3")
+        .attr("width", wsvg + "%")
+        .attr("height", hsvg + "%")
+        .attr("viewBox", "0 0 " + wtot + " " + htot)
+        .append("g")
+        .attr("transform",
+            `translate(${margin.left},${margin.top})`)
+        // Add Y axis
+        const y3 = d3.scaleLinear()
+            .domain([0, 2])
+            .range([height, 0]);
+
+        var yAxisGenerator3 = d3.axisLeft(y3);
+
+        var yAxis3 = svg3.append("g")
+            .call(yAxisGenerator3);
+
+        yAxis3.selectAll(".tick text")
+            .attr("font-size", "25");
+
+        // Add X axis
+        const x3 = d3.scaleTime()
+            .domain([years[0], years[4]])
+            .range([0, width]);
+
+        var xAxisGenerator3 = d3.axisBottom(x3).tickFormat(d3.format("d"));
+
+        var xAxis3 = svg3.append("g")
+            .attr("class", "xaxis")
+            .call(xAxisGenerator3)
+            .attr("transform", `translate(0,${height})`);
+
+        xAxis3.selectAll(".tick text")
+            .attr("font-size", "20")
+            .attr("transform", "rotate(-45)translate(-50,0)");
+
+
+    const svg4 = d3.select("#line4")
+        .attr("width", wsvg + "%")
+        .attr("height", hsvg + "%")
+        .attr("viewBox", "0 0 " + wtot + " " + htot)
+        .append("g")
+        .attr("transform",
+            `translate(${margin.left},${margin.top})`)
+        // Add Y axis
+        const y4 = d3.scaleLinear()
+            .domain([90, 130])
+            .range([height, 0]);
+
+        var yAxisGenerator4 = d3.axisLeft(y4);
+
+        var yAxis4 = svg4.append("g")
+            .call(yAxisGenerator4);
+
+        yAxis4.selectAll(".tick text")
+            .attr("font-size", "25");
+
+        // Add X axis
+        const x4 = d3.scaleTime()
+            .domain([years[0], years[4]])
+            .range([0, width]);
+
+        var xAxisGenerator4 = d3.axisBottom(x4).tickFormat(d3.format("d"));
+
+        var xAxis4 = svg4.append("g")
+            .attr("class", "xaxis")
+            .call(xAxisGenerator4)
+            .attr("transform", `translate(0,${height})`);
+
+        xAxis4.selectAll(".tick text")
+            .attr("font-size", "30")
+            .attr("transform", "rotate(-45)translate(-50,0)");
+
+
+        show("line1", svg1, x1, y1)
+        show("line2", svg2, x2, y2)
+        show("line3", svg3, x3, y3)
+        show("line4", svg4, x4, y4)
+
+
+    function show(fileName, svgName, x, y) {
+
+        d3.csv("../assets/health/" + fileName + ".csv").then(function (data) {
+
+            const values = d3.group(data, d => d.categories);
+            console.log(data.years);
+            update();
+
+            function update() {
+
+                selection = svgName.selectAll(".line")
+                    .data(values);
+
+                dotSelection = svgName.selectAll(".dot")
+                    .data(values);
+
+
+                selection.enter()
+                    .append("path")
+                    .attr("class", "line")
+                    .data([values])
+                    .attr("fill", "none")
+                    .attr("stroke", "plum")
+                    .attr("stroke-width", 4.5)
+                    .attr("d", function(d) {
+                        return d3.line()
+                            .x(function (d) {
+                                return x(d.years);
+                            })
+                            .y(function (d) {
+                                return y(+d.data);
+                            })
+                            (d[1])
+                    })
+
+
+                // add the dots with tooltips
+
+                dotSelection.enter()
+                    .append("circle")
+                    .attr("class", "dot")
+                    .attr("r", 3)
+                    .attr("cx", function (d) { return x(d.years); })
+                    .attr("cy", function (d) { return y(d.data); })
+                    .style("opacity", 0.9)
+                    .style("fill", "MediumOrchid")
+                    .on("mouseover", function (event, d) {
+                        div.transition()
+                            .duration(300)
+                            .style("opacity", .9);
+                        div.html(d.data)
+                            .style("left", (event.pageX) + "px")
+                            .style("top", (event.pageY - 100) + "px")
+                            .style("position", "absolute");
+                    })
+                    .on("mouseout", function (d) {
+                        div.transition()
+                            .duration(500)
+                            .style("opacity", 0)
+
+
+                    });
+
+
+                /* list.on('change', function () {
+                    data = "";
+
+                    update();
+
+                    show(this.value);
+                }); */
+
+                //selection.exit().remove();
+                //dotSelection.exit().remove();
+            }
+
+        });
+    }
+
+
+
+</script>
+
 </body>
 </html>
+
+data.filter(data => data.id.includes(0));
+data.filter(data => data.id.includes(1, 2, 3, 4));
+data.filter(data => data.id.includes(5, 6, 7, 8));
+data.filter(data => data.id.includes(9));

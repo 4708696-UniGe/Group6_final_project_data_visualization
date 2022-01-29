@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee50a3ed-f2e3-4ede-8b16-b84d69ffc80d" name="Changes" comment="- tooltip&#10;- time slider&#10;- legenda&#10;- colonna per &quot;explanatory text&quot;&#10;- titolo svg&#10;- paradigma &quot;enter update exit&quot;">
+    <list default="true" id="ee50a3ed-f2e3-4ede-8b16-b84d69ffc80d" name="Changes" comment="- ampliamento scala legenda">
+      <change afterPath="$PROJECT_DIR$/assets/health/istat_sanitaria.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/health/line1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/health/line2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/health/line3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/health/line4.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/health.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/health.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +31,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="23QPURhYrCN9FYUNPIzTuvrU4y7" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -35,6 +43,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -52,7 +61,7 @@
       <workItem from="1641663357141" duration="121000" />
       <workItem from="1643031896894" duration="1461000" />
       <workItem from="1643033382092" duration="11930000" />
-      <workItem from="1643461680092" duration="3097000" />
+      <workItem from="1643461680092" duration="14685000" />
     </task>
     <task id="LOCAL-00001" summary="- tooltip&#10;- time slider&#10;- legenda&#10;- colonna per &quot;explanatory text&quot;&#10;- titolo svg&#10;- paradigma &quot;enter update exit&quot;">
       <created>1643303817824</created>
@@ -61,7 +70,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643303817824</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="- ampliamento scala legenda">
+      <created>1643464855879</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1643464855879</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,7 +110,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="- tooltip&#10;- time slider&#10;- legenda&#10;- colonna per &quot;explanatory text&quot;&#10;- titolo svg&#10;- paradigma &quot;enter update exit&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="- tooltip&#10;- time slider&#10;- legenda&#10;- colonna per &quot;explanatory text&quot;&#10;- titolo svg&#10;- paradigma &quot;enter update exit&quot;" />
+    <MESSAGE value="- ampliamento scala legenda" />
+    <option name="LAST_COMMIT_MESSAGE" value="- ampliamento scala legenda" />
   </component>
 </project>
