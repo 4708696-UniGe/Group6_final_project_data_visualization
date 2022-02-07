@@ -1,0 +1,35 @@
+Cause of death,From 65 to 69 years 2016,From 70 to 74 years 2016,75 years or over 2016,From 65 to 69 years 2017,From 70 to 74 years 2017,75 years or over 2017,From 65 to 69 years 2018,From 70 to 74 years 2018,75 years or over 2018,From 65 to 69 years 2019,From 70 to 74 years 2019,75 years or over 2019,From 65 to 69 years 2020,From 70 to 74 years 2020,75 years or over 2020,Total 2016,Total 2017,Total 2018,Total 2019,Total 2020
+Transport accidents,0,1,7,1,4,4,2,1,3,0,0,6,0,0,4,8,9,6,6,4
+Other causes and unknown causes,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0
+Other external causes,4,3,28,3,3,51,1,2,26,1,4,40,1,1,34,35,57,29,46,37
+Other diseases of the circulatory system,10,17,322,11,14,370,8,17,363,10,14,374,14,12,394,350,395,390,397,421
+Other diseases of the nervous system and sense organs,3,10,82,6,5,96,11,7,89,6,12,99,8,19,84,96,107,109,119,114
+Other diseases of the respiratory system,1,8,51,1,6,68,1,4,59,0,2,68,2,4,71,61,76,64,72,78
+Other endocrine diseases,2,1,26,2,3,25,3,6,12,3,4,24,5,5,29,29,31,21,32,40
+Other behavioral disorders,2,0,6,2,2,8,0,2,10,0,1,11,1,1,11,8,12,12,12,14
+Cardiac arrest,4,2,25,2,3,21,2,3,30,3,2,36,0,3,0,31,27,35,42,3
+Accidental falls,1,1,28,0,2,49,3,1,37,0,1,37,0,4,40,31,52,42,39,45
+Hypertensive heart disease,2,3,140,4,7,134,2,4,147,5,2,156,2,5,186,146,147,154,165,194
+Ischemic heart disease,18,18,339,17,22,368,13,19,324,11,29,297,16,18,299,375,409,357,339,334
+Covid-19 virus identified,0,0,0,0,0,0,0,0,0,0,0,0,28,44,582,0,0,0,0,655
+Covid-19 virus not identified,0,0,0,0,0,0,0,0,0,0,0,0,0,3,63,0,0,0,0,66
+Dementia,0,1,125,0,3,164,0,2,146,0,3,165,1,3,187,126,168,148,170,191
+Diabetes,2,4,51,6,7,61,3,3,48,3,4,69,4,7,73,57,76,54,78,86
+Influenza,0,1,5,1,1,17,0,0,17,2,0,14,1,3,21,6,19,17,16,25
+Alzheimer's disease,0,2,69,0,9,59,1,2,74,2,0,62,2,2,81,73,69,78,65,87
+Cerebrovascular diseases,6,17,212,3,10,227,6,12,211,6,7,219,5,17,243,234,241,230,233,267
+Congenital diseases,0,0,2,1,1,1,1,3,6,2,0,2,4,1,2,2,3,10,4,7
+Chronic lower respiratory disease,6,11,93,2,10,135,3,9,128,1,11,102,3,5,140,111,147,140,115,150
+Blood diseases,0,1,12,0,0,10,0,0,13,2,1,7,0,0,20,13,10,13,10,20
+Osteo-muscular diseases,0,2,24,1,2,23,4,2,17,1,2,32,1,1,28,26,26,23,35,30
+Skin and subcutaneous tissue diseases,13,8,90,6,11,84,7,11,72,5,11,68,10,5,82,113,102,92,85,98
+Gastrointestinal diseases,0,0,4,0,1,0,0,0,3,0,0,6,0,0,3,4,1,3,6,3
+Genitourinary diseases,5,4,38,3,4,47,2,4,58,2,3,38,2,7,56,47,54,65,44,66
+Infectious diseases,1,0,3,0,0,1,0,0,0,0,0,4,1,1,11,4,1,0,4,13
+Interstitial lung diseases (Interstitial pneumonia),0,0,1,0,0,0,0,0,0,0,0,2,0,0,0,1,0,0,2,0
+Murders,4,4,68,1,2,78,4,5,91,2,4,97,2,2,82,78,83,101,103,87
+Pneumonia,3,2,42,1,1,58,1,4,54,1,0,59,2,7,105,48,60,59,61,114
+"Ill-defined symptoms, signs and conditions",3,0,7,1,0,5,0,1,6,3,3,8,0,1,5,10,6,7,14,6
+Suicides,89,124,533,89,113,563,88,114,591,86,114,525,83,141,602,745,765,793,726,822
+Tumors,2,0,43,1,2,49,0,2,53,1,0,60,0,6,64,45,53,57,61,72
+Total,181,245,2476,165,248,2776,166,240,2688,159,234,2687,198,328,3602,2913,3206,3109,3102,4149

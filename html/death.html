@@ -39,34 +39,38 @@
     </div>
 </nav>
 
-<!--TODO : cancellare bordi e fare script con dimensioni (si adattano)-->
+<h2>Death Causes </h2>
+<h5>divided by year and region</h5>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col" style="border: black solid 1px">
-            <div class="row">
-                <div class="btn-group dropright">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                        Year
-                    </button>
-                    <div class="dropdown-menu">
-                        <!-- Dropdown menu links -->
-                    </div>
-                </div>
+        <div class="col">
+            <div class="row justify-content-center">
+                <h6>Select year :</h6>
             </div>
-            <div class="row">
-                <div class="btn-group dropright">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                        Region
-                    </button>
-                    <div class="dropdown-menu">
-                        <!-- Dropdown menu links -->
-                    </div>
-                </div>
+            <div class="row justify-content-center" >
+
+                <select id="years1"></select>
+
             </div>
         </div>
-        <div class="col-8 offset-1" style="border: black solid 1px">
-            <svg id="groupedBar1" style="border: black solid 1px"></svg>
+        <div class="col">
+            <div class="row justify-content-center">
+                <h6>Select region :</h6>
+            </div>
+            <div class="row justify-content-center">
+
+                <select id="region"></select>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 " >
+            <svg id="groupedBar1" ></svg>
+        </div>
+        <div class="col-2 " >
+            <svg id="legend1" ></svg>
         </div>
     </div>
 </div>
@@ -79,5 +83,273 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script>
+
+    var years = ["2016", "2017", "2018", "2019", "2020"]
+
+    // dropdowns -- YEARS
+    var options_y = d3.select('#years1')
+        .selectAll('option')
+        .data(years)
+        .enter()
+        .append('option');
+
+    // adding labels based on array
+    options_y.text(function (d) { return d })
+        .attr('value', function (d) { return d });
+
+    var regions = ["Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna", "Friuli-Venezia-Giulia", "Lazio", "Liguria", "Lombardia", "Marche",
+        "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "Trentino Alto-Adige", "Umbria", "Valle d'Aosta", "Veneto"]
+
+    // dropdowns -- YEARS
+    var options_r = d3.select('#region')
+        .selectAll('option')
+        .data(regions)
+        .enter()
+        .append('option');
+
+    // adding labels based on array
+    options_r.text(function (d) { return d })
+        .attr('value', function (d) { return d });
+
+    //1.set dimensions of svg
+    const wsvg = 100;//using percentage relative to the container div
+    const hsvg = 100;//using percentage relative to the container div
+
+    //2.set dimensions within svg following Mike Bostok's convention
+    const wtot = 800;
+    const htot = 400;
+    const margin = { top: 10, right: 60, bottom: 110, left: 60 },
+        width = wtot - margin.left - margin.right,
+        height = htot - margin.top - margin.bottom;
+
+    const svg = d3.select("#groupedBar1")
+        .attr("width", wsvg + "%")
+        .attr("height", hsvg + "%")
+        .attr("viewBox", "0 0 " + wtot + " " + htot)
+        .append("g")
+        .attr("transform",
+            `translate(${margin.left},${margin.top})`)
+
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip");
+
+    // select the svg area
+    var svgLegend = d3.select("#legend1")
+        .attr("width", wsvg + "%")
+        .attr("height", hsvg + "%")
+        .attr("viewBox", "0 0 " + "200" + " " + "50")
+        .append("g")
+        .attr("transform",
+            `translate(-100,-200)`)
+
+    // create a list of keys
+    var keys = ["From 65 to 69 years", "From 70 to 74 years", "75 years or over"]
+
+    // Usually you have a color scale in your chart already
+    var color = d3.scaleOrdinal()
+        .domain(keys)
+        .range(['#e41a1c','#377eb8','#4daf4a']);
+
+    // Add one dot in the legend for each name.
+    var size = 20
+    svgLegend.selectAll("mydots")
+        .data(keys)
+        .enter()
+        .append("rect")
+        .attr("x", 100)
+        .attr("y", function(d,i){ return 100 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("width", size)
+        .attr("height", size)
+        .style("fill", function(d){ return color(d)})
+
+    // Add one dot in the legend for each name.
+    svgLegend.selectAll("mylabels")
+        .data(keys)
+        .enter()
+        .append("text")
+        .attr("x", 100 + size*1.2)
+        .attr("y", function(d,i){ return 100 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+        .style("fill", function(d){ return color(d)})
+        .text(function(d){ return d})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
+
+
+    var zoom = d3.zoom()
+        .scaleExtent([1, 5])
+        .translateExtent([[-30, 0], [width, height+100]])
+        .on('zoom', handleZoom);
+
+    function initZoom() {
+        d3.select("#groupedBar1").call(zoom);
+    }
+
+    function handleZoom(e) {
+        d3.select("#groupedBar1 g")
+            .attr('transform', e.transform);
+    }
+
+    function draw(year, region) {
+
+        d3.csv("../assets/death/"+region+".csv").then(function (data) {
+
+            // List of subgroups = header of the csv files = soil condition here
+
+            let subgroups;
+
+            switch (year) {
+                case "2016":
+                    subgroups = data.columns.slice(1, 4);
+                    break;
+                case "2017":
+                    subgroups = data.columns.slice(4, 7);
+                    break;
+                case "2018":
+                    subgroups = data.columns.slice(7, 10);
+                    break;
+                case "2019":
+                    subgroups = data.columns.slice(10, 13);
+                    break;
+                case "2020":
+                    subgroups = data.columns.slice(13, 16);
+                    break;
+                default:
+                    console.log("aaaa");
+            }
+
+            console.log(subgroups)
+
+            //data = data.filter(data => data.year.includes(year));
+            data = data.filter(function(d){ return d["Cause of death"] !== "Total" })
+            //console.log(data);
+
+            // List of groups = species here = value of the first column called group -> I show them on the X axis
+            let groups = data.map(d => d["Cause of death"])
+            console.log(groups)
+
+            // Add X axis
+            const x = d3.scaleBand()
+                .domain(groups)
+                .range([0, width])
+                .padding([0.2])
+
+            var xAxis = svg.append("g")
+                .attr("transform", `translate(0, ${height})`)
+                .attr("class", "xAxis")
+                .call(d3.axisBottom(x));
+
+            xAxis.selectAll(".tick text")
+                .attr("font-size", "6")
+                .attr("transform", "rotate(-35)translate(0,0)")
+                .attr("text-anchor", "end");
+
+            console.log(subgroups[2]);
+            console.log(d3.max(data, function(d) {return parseInt(d[subgroups[2]]); }))
+
+            // Add Y axis
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(data, function(d) {return parseInt(d[subgroups[2]]); })])
+                .range([height, 0]);
+
+            svg.append("g")
+                .attr("class", "yAxis")
+                .call(d3.axisLeft(y));
+
+            // Another scale for subgroup position?
+            const xSubgroup = d3.scaleBand()
+                .domain(subgroups)
+                .range([0, x.bandwidth()])
+                .padding([0.05])
+
+            // color palette = one color per subgroup
+            const color = d3.scaleOrdinal()
+                .domain(subgroups)
+                .range(['#e41a1c', '#377eb8', '#4daf4a'])
+
+
+            function update() {
+
+                let xSelection = svg.selectAll(".xAxis");
+
+                let ySelection = svg.selectAll(".yAxis");
+
+                let selection = svg.append("g")
+                    .selectAll("g")
+                    // Enter in data = loop group per group
+                    .data(data)
+                    .enter()
+                    .append("g")
+                    .attr("transform", d => `translate(${x(d["Cause of death"])}, 0)`)
+                    .selectAll("rect")
+                    .data(function (d) {
+                        return subgroups.map(function (key) {
+                            return {key: key, value: d[key]};
+                        });
+                    });
+
+                // Show the bars
+                selection.enter()
+                    .append("rect")
+                    .attr("class", d => d.key)
+                    .attr("x", d => xSubgroup(d.key))
+                    .attr("y", d => y(d.value))
+                    .attr("width", xSubgroup.bandwidth())
+                    .attr("height", d => height - y(d.value))
+                    .attr("fill", d => color(d.key))
+                    .on("mouseover", function (event, d) {
+                            tooltip.transition()
+                                .duration(200)
+                                .style("opacity", .9);
+                            tooltip.html("<strong>" + "Number of deaths" + "</strong>" + "<br/>" +
+                                d.value)
+                                .style("left", (event.pageX - 70) + "px")
+                                .style("top", (event.pageY - 100) + "px")
+                                .style("position", "absolute");
+                    })
+                    .on("mouseout", function (d) {
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
+
+                d3.select("#years1").on("change", function() {
+                    let chosenYear=d3.select('#years1 option:checked').text();
+                    let chosenRegion=d3.select('#region option:checked').text();
+
+                    ySelection.remove();
+                    xSelection.remove();
+
+                    svg.selectAll("g").data(data).exit().transition().duration(10).remove();
+
+                    draw(chosenYear, chosenRegion);
+                })
+
+                d3.select("#region").on("change", function() {
+                    let chosenRegion=d3.select('#region option:checked').text();
+                    let chosenYear=d3.select('#years1 option:checked').text();
+
+                    ySelection.remove();
+                    xSelection.remove();
+
+                    svg.selectAll("g").data(data).exit().transition().duration(10).remove();
+
+                    draw(chosenYear, chosenRegion);
+                })
+
+            }
+
+            update();
+
+        });
+    }
+
+    draw("2016", "Abruzzo");
+
+    initZoom();
+
+</script>
+
 </body>
 </html>

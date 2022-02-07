@@ -171,7 +171,7 @@
         .width(300)
         .tickFormat(d3.timeFormat('%Y'))
         .tickValues(dataTime)
-        .default(new Date(2020, 10, 3));
+        .default(new Date(2016, 10, 3));
 
     var gTime = d3
         .select('div#slider-time')
@@ -195,7 +195,7 @@
         .style("font-size", "3.5rem")
         .text("Elderly Population in Italy over the years" );
 
-    var def_year = "2020"
+    var def_year = "2016"
     drawMap(def_year)
     // Load external data and boot
     function drawMap(year){
