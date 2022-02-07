@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../d3.js"></script>
 </head>
 <body>
-<h1>Insert Title Here</h1>
+<h1>Elder people and COVID-19</h1>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -255,6 +255,7 @@
 
             svg.append("g")
                 .attr("class", "yAxis")
+                .transition().duration(500)
                 .call(d3.axisLeft(y));
 
             // Another scale for subgroup position?
@@ -294,9 +295,9 @@
                     .append("rect")
                     .attr("class", d => d.key)
                     .attr("x", d => xSubgroup(d.key))
-                    .attr("y", d => y(d.value))
+                    .attr("y", d => y(0))
                     .attr("width", xSubgroup.bandwidth())
-                    .attr("height", d => height - y(d.value))
+                    .attr("height", d => height - y(0))
                     .attr("fill", d => color(d.key))
                     .on("mouseover", function (event, d) {
                             tooltip.transition()
@@ -314,6 +315,13 @@
                             .style("opacity", 0);
                     });
 
+                // Animation
+                svg.selectAll("rect")
+                    .transition()
+                    .duration(800)
+                    .attr("y", d => y(d.value))
+                    .attr("height", d => height - y(d.value));
+
                 d3.select("#years1").on("change", function() {
                     let chosenYear=d3.select('#years1 option:checked').text();
                     let chosenRegion=d3.select('#region option:checked').text();
@@ -321,7 +329,8 @@
                     ySelection.remove();
                     xSelection.remove();
 
-                    svg.selectAll("g").data(data).exit().transition().duration(10).remove();
+                    svg.selectAll("rect").remove();
+                    //svg.selectAll("g").data(data).exit().transition().duration(10).remove();
 
                     draw(chosenYear, chosenRegion);
                 })
@@ -333,7 +342,8 @@
                     ySelection.remove();
                     xSelection.remove();
 
-                    svg.selectAll("g").data(data).exit().transition().duration(10).remove();
+                    svg.selectAll("rect").remove();
+                    //svg.selectAll("g").data(data).exit().transition().duration(10).remove();
 
                     draw(chosenYear, chosenRegion);
                 })

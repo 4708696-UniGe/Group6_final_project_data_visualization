@@ -231,9 +231,11 @@
                     .append("rect")
                     .attr("class", d => d.key)
                     .attr("x", d => xSubgroup(d.key))
-                    .attr("y", d => y(d.value))
+                    //.attr("y", d => y(d.value))
+                    .attr("y", d => y(0))
                     .attr("width", xSubgroup.bandwidth())
-                    .attr("height", d => height - y(d.value))
+                    //.attr("height", d => height - y(d.value))
+                    .attr("height", d => height - y(0))
                     .attr("fill", d => color(d.key))
                     .on("mouseover", function (event, d) {
                         if (d3.select(this).attr("class") === "smokers") {
@@ -253,13 +255,23 @@
                             .style("opacity", 0);
                     });
 
+                // Animation
+                svg.selectAll("rect")
+                    .transition()
+                    .duration(800)
+                    .attr("y", d => y(d.value))
+                    .attr("height", d => height - y(d.value));
+                    //.delay((d,i) => {console.log(i); return i*100})
+
+
                 d3.select("#years2").on("change", function() {
                     let chosenYear=d3.select('#years2 option:checked').text();
 
                     ySelection.remove();
                     xSelection.remove();
 
-                    svg.selectAll("g").data(data).exit().transition().duration(10).remove();
+                    svg.selectAll("rect").remove();
+                    //svg.selectAll("g").data(data).exit().remove();
 
                     draw(chosenYear);
                 })
