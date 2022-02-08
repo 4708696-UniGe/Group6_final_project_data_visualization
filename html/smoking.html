@@ -13,9 +13,9 @@
     <script type="text/javascript" src="../d3.js"></script>
 </head>
 <body>
-<h1>Elder people and COVID-19</h1>
+<h1>Elderly mortality over the years</h1>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark customNav">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -50,7 +50,7 @@
             </div>
             <div class="row justify-content-center" >
 
-                <select id="years2"></select>
+                <select id="years2" class="dropdown_content"></select>
                 <!--margin top per il paragrafo-->
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -133,7 +133,7 @@
     // Usually you have a color scale in your chart already
     var color = d3.scaleOrdinal()
         .domain(keys)
-        .range(['#e41a1c','#377eb8','#4daf4a']);
+        .range(['#BFCBA8', '#7db598', '#56776C']);
 
     // Add one dot in the legend for each name.
     var size = 20
@@ -180,19 +180,27 @@
                 .range([0, width])
                 .padding([0.2])
 
-            svg.append("g")
+            var xAxis = svg.append("g")
                 .attr("transform", `translate(0, ${height})`)
                 .attr("class", "xAxis")
                 .call(d3.axisBottom(x).tickSize(0));
+
+            xAxis.selectAll(".tick text")
+            .attr("font-size", "15")
+            .style("font-family", "Fira Sans");
 
             // Add Y axis
             const y = d3.scaleLinear()
                 .domain([0, 70])
                 .range([height, 0]);
 
-            svg.append("g")
+            var yAxis = svg.append("g")
                 .attr("class", "yAxis")
                 .call(d3.axisLeft(y));
+
+            yAxis.selectAll(".tick text")
+            .attr("font-size", "15")
+            .style("font-family", "Fira Sans");
 
             // Another scale for subgroup position?
             const xSubgroup = d3.scaleBand()
@@ -203,7 +211,7 @@
             // color palette = one color per subgroup
             const color = d3.scaleOrdinal()
                 .domain(subgroups)
-                .range(['#e41a1c', '#377eb8', '#4daf4a'])
+                .range(['#BFCBA8', '#7db598', '#56776C'])
 
 
             function update() {
@@ -255,6 +263,19 @@
                             .style("opacity", 0);
                     });
 
+                selection.enter().append("text")
+                    .text(function(d){
+                        return d.value + '%';
+                    })
+                    .attr("x", function(d) { return xSubgroup(d.key) + (xSubgroup.bandwidth()/2); })
+                    .attr("y", function(d) { return y(d.value) - 10; })
+                    .style("opacity", 0)
+                    .style("font-family", "Fira Sans")
+                    .transition()
+                    .duration(800)
+                    .style("opacity", 1)
+                    .style("text-anchor", "middle");
+
                 // Animation
                 svg.selectAll("rect")
                     .transition()
@@ -271,6 +292,7 @@
                     xSelection.remove();
 
                     svg.selectAll("rect").remove();
+                    svg.selectAll("text").remove();
                     //svg.selectAll("g").data(data).exit().remove();
 
                     draw(chosenYear);

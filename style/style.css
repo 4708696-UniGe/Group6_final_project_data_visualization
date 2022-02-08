@@ -1,9 +1,19 @@
-h1, h2, h3, h5 {
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+
+h1, h2, h3, h4, h5, h6 {
     text-align: center;
+}
+
+h1 {
+    font-variant: small-caps;
+    background-color: #49796a;
+    color: white;
 }
 
 body {
     font-family: "Fira Sans";
+    background-color: #fffcfc;
 }
 
 .legend {
@@ -29,10 +39,7 @@ body {
 .axis text,
 .slider text {
     font-size: 15px;
-}
-
-.choropleth_map {
-
+    font-family: "Fira Sans";
 }
 
 .explanatory_text {
@@ -43,4 +50,21 @@ body {
 
 .healthline4 {
     margin: auto;
+}
+
+.customNav {
+    background-color: #414f4b;
+    margin-top: -10px;
+}
+
+#slider-time {
+    text-align: center;
+}
+
+.dropdown_content {
+    padding: 8px 12px;
+    background-color: #414f4b;
+    color: white;
+    border-radius: 3px;
+    margin: 5px;
 }

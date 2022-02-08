@@ -13,9 +13,9 @@
     <script type="text/javascript" src="../d3.js"></script>
 </head>
 <body>
-<h1>Elder people and COVID-19</h1>
+<h1>Elderly mortality over the years</h1>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark customNav">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,33 +39,32 @@
     </div>
 </nav>
 
-
-<!--TODO : cancellare bordi e fare script con dimensioni (si adattano)-->
+<h2>Elderly Population in Italy over the years</h2>
 
 <div class="container-fluid">
 
     <div class="row" >
-        <div class="col-9 choropleth_map">
+        <div class="col-8 choropleth_map">
             <svg id="map"></svg>
             <div class="row align-items-center">
                 <div class="col-sm"><div id="slider-time"></div></div>
             </div>
         </div>
-        <div class="col-3 explanatory_text">
+        <div class="col-4 explanatory_text">
             <p>
                 The aim (purpose?) of the following visualizations includes showing the number of elder people (65+ years)
                 in the italian regions, focusing on the time interval between 2016 and 2020, to see if and how this aspect was affected by Covid19.
-
+                <br>
                 Further in the dashboard we will also consider as an underlying health condition the smoking status of the elderly,
                 since the virus mainly affects the lower respiratory tract.
-
+                <br>
                 Another interesting point of view can be looking at the monthly average expenditure with regards
                 to healthcare, to see if and how Covid19 concurred in this aspect, too.
-
+                <br>
                 In addition to this information, the dashboard intends to provide a visualization for the same time interval
                 of the number of deaths in the italian regions, along with their causes, to see how much the virus was involved in it.
                 (Jan-Apr data availability?)
-
+                <br>
 
                 On the left a map of Italy, with the possibility to switch year, showing the number of people over 65 years (data from Eurostat).
 
@@ -88,13 +87,13 @@
 
 <script>
     //1.set dimensions of svg
-    const wsvg = 80;//using percentage relative to the container div
-    const hsvg = 80;//using percentage relative to the container div
+    const wsvg = 100;//using percentage relative to the container div
+    const hsvg = 70;//using percentage relative to the container div
 
     //2.set dimensions within svg following Mike Bostok's convention
     const wtot = 1600;
     const htot = 900;
-    const margin = { top: 100, right: 80, bottom: 90, left: 80 },
+    const margin = { top: 0, right: 0, bottom: 0, left: 80 },
         width = wtot - margin.left - margin.right,
         height = htot - margin.top - margin.bottom;
 
@@ -113,7 +112,7 @@
     const projection = d3.geoMercator()
         .scale(3000)
         .center([12,43])
-        .translate([width / 2, height / 2]);
+        .translate([width / 2, (height / 3) +80]);
 
     const path = d3.geoPath().projection(projection);
 
@@ -126,7 +125,8 @@
         //.range(d3.schemeGreens[7]);
         //.domain([0, 100000, 861538, 1623067, 2384615, 3146154, 3907692, 4669231, 5430769, 6192307, 6953846, 7715384, 8476923, 9238461, 10000000])
         .domain([0, 100000, 610000, 1120000, 1630000, 2140000, 2650000, 3160000, 3670000, 4180000, 4690000, 5200000, 8476923, 9238461, 10000000])
-        .range(["#f6fff6", "#e2ffe2", "#ceffce", "#bbffbb", "#a7ffa7", "#94ff94", "#59ff59", "#1eff1e", "#00e200", "#00ce00", "#00bb00", "#009400", "#006c00", "#004500", "#001e00", "#000a00"]);
+        .range(["#e4f6c3", "#d1e5b6", "#bfd4aa", "#adc49d", "#9cb491", "#8ca384", "#7c9378", "#6d846c", "#5e7460", "#516554", "#435648", "#37483c", "#2b3a31", "#202c25", "#151f1a", "#07130e"]);
+        //.range(["#f6fff6", "#e2ffe2", "#ceffce", "#bbffbb", "#a7ffa7", "#94ff94", "#59ff59", "#1eff1e", "#00e200", "#00ce00", "#00bb00", "#009400", "#006c00", "#004500", "#001e00", "#000a00"]);
 
     var ext_color_domain = [0, 100000, 610000, 1120000, 1630000, 2140000, 2650000, 3160000, 3670000, 4180000, 4690000, 5200000, 8476923, 9238461, 10000000]
     //var ext_color_domain = [0, 100000, 2120000, 4140000, 6160000, 8180000, 10000000]
@@ -142,21 +142,32 @@
 
     legend.append("rect")
         .attr("x", -50)
-        .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+        .attr("y", function(d, i){ return height - (i*ls_h) - 2.8*ls_h;})
         .attr("width", ls_w)
         .attr("height", ls_h)
         .style("fill", function(d, i) { return colorScale(d); })
-        .style("opacity", 0.8);
+        .style("opacity", 0)
+        .transition()
+        .duration(800)
+        .style("opacity", 1);
 
     legend.append("text")
         .attr("x", -0)
-        .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 8;})
-        .text(function(d, i){ return legend_labels[i]; });
+        .attr("y", function(d, i){ return height - (i*ls_h) - 2.8*ls_h + 30;})
+        .text(function(d, i){ return legend_labels[i]; })
+        .style("opacity", 0)
+        .transition()
+        .duration(800)
+        .style("opacity", 1);
 
     legend.append("text")
         .attr("x", -50)
-        .attr("y", 120)
-        .text("Population (Million)");
+        .attr("y", 280)
+        .text("Population (Million)")
+        .style("opacity", 0)
+        .transition()
+        .duration(800)
+        .style("opacity", 1);
 
     // Time
     var dataTime = d3.range(0, 5).map(function(d) {
@@ -188,12 +199,6 @@
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip");
 
-    svg.append("text")
-        .attr("x", width/2)
-        .attr("y", "0")
-        .attr("text-anchor", "middle")
-        .style("font-size", "3.5rem")
-        .text("Elderly Population in Italy over the years" );
 
     var def_year = "2016"
     drawMap(def_year)
@@ -226,7 +231,7 @@
                         .y(function (d) { return y(d.Tmed) })
                     )*/
 
-                selection.enter()
+                var selection_prime = selection.enter()
                     //.selectAll("path")
                     //.data(topo.features)
                     //.join("path")
@@ -238,22 +243,30 @@
                     .attr("fill", function (d) {
                         d.total = data.get(d.properties.reg_name) || 0;
                         return colorScale(d.total);
-                    })
-                    .on("mouseover", function (event, d) {
-                        tooltip.transition()
-                            .duration(200)
-                            .style("opacity", .9);
-                        tooltip.html("<strong>" + d.properties.reg_name + "</strong>" + "<br/>" + "Elderly Population: " +
-                            (data.get(d.properties.reg_name)).toLocaleString())
-                            .style("left", (event.pageX + 40) + "px")
-                            .style("top", (event.pageY - 40) + "px")
-                            .style("position", "absolute");
-                    })
-                    .on("mouseout", function (d) {
-                        tooltip.transition()
-                            .duration(500)
-                            .style("opacity", 0);
-                    })
+                    });
+
+                selection_prime
+                    .style("opacity", 0)
+                    .transition()
+                    .duration(800)
+                    .style("opacity", 1)
+
+                selection_prime.on("mouseover", function (event, d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html("<strong>" + d.properties.reg_name + "</strong>" + "<br/>" + "Elderly Population: " +
+                        (data.get(d.properties.reg_name)).toLocaleString())
+                        .style("left", (event.pageX + 40) + "px")
+                        .style("top", (event.pageY - 40) + "px")
+                        .style("position", "absolute");
+                })
+                .on("mouseout", function (d) {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                })
+
                 sliderTime.on('onchange', val => {
                     //topo = "";
                     update();

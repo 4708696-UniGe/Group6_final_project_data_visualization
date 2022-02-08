@@ -13,9 +13,9 @@
     <script type="text/javascript" src="../d3.js"></script>
 </head>
 <body>
-<h1>Elder people and COVID-19</h1>
+<h1>Elderly mortality over the years</h1>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark customNav">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,8 +39,7 @@
     </div>
 </nav>
 
-<h2>Death Causes </h2>
-<h5>divided by year and region</h5>
+<h2>Death Causes divided by year and region</h2>
 
 <div class="container-fluid">
     <div class="row">
@@ -50,7 +49,7 @@
             </div>
             <div class="row justify-content-center" >
 
-                <select id="years1"></select>
+                <select id="years1" class="dropdown_content"></select>
 
             </div>
         </div>
@@ -60,7 +59,7 @@
             </div>
             <div class="row justify-content-center">
 
-                <select id="region"></select>
+                <select id="region" class="dropdown_content"></select>
 
             </div>
         </div>
@@ -119,7 +118,7 @@
 
     //2.set dimensions within svg following Mike Bostok's convention
     const wtot = 800;
-    const htot = 400;
+    const htot = 320;
     const margin = { top: 10, right: 60, bottom: 110, left: 60 },
         width = wtot - margin.left - margin.right,
         height = htot - margin.top - margin.bottom;
@@ -150,7 +149,7 @@
     // Usually you have a color scale in your chart already
     var color = d3.scaleOrdinal()
         .domain(keys)
-        .range(['#e41a1c','#377eb8','#4daf4a']);
+        .range(['#BFCBA8', '#7db598', '#56776C']);
 
     // Add one dot in the legend for each name.
     var size = 20
@@ -179,7 +178,7 @@
 
     var zoom = d3.zoom()
         .scaleExtent([1, 5])
-        .translateExtent([[-30, 0], [width, height+100]])
+        .translateExtent([[-40, 0], [width, height+100]])
         .on('zoom', handleZoom);
 
     function initZoom() {
@@ -243,7 +242,8 @@
             xAxis.selectAll(".tick text")
                 .attr("font-size", "6")
                 .attr("transform", "rotate(-35)translate(0,0)")
-                .attr("text-anchor", "end");
+                .attr("text-anchor", "end")
+                .style("font-family", "Fira Sans");
 
             console.log(subgroups[2]);
             console.log(d3.max(data, function(d) {return parseInt(d[subgroups[2]]); }))
@@ -253,10 +253,13 @@
                 .domain([0, d3.max(data, function(d) {return parseInt(d[subgroups[2]]); })])
                 .range([height, 0]);
 
-            svg.append("g")
+            var yAxis = svg.append("g")
                 .attr("class", "yAxis")
                 .transition().duration(500)
                 .call(d3.axisLeft(y));
+
+            yAxis.selectAll(".tick text")
+            .style("font-family", "Fira Sans");
 
             // Another scale for subgroup position?
             const xSubgroup = d3.scaleBand()
@@ -267,7 +270,7 @@
             // color palette = one color per subgroup
             const color = d3.scaleOrdinal()
                 .domain(subgroups)
-                .range(['#e41a1c', '#377eb8', '#4daf4a'])
+                .range(['#BFCBA8', '#7db598', '#56776C'])
 
 
             function update() {

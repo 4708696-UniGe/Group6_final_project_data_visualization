@@ -13,9 +13,9 @@
     <script type="text/javascript" src="../d3.js"></script>
 </head>
 <body>
-<h1>Elder people and COVID-19</h1>
+<h1>Elderly mortality over the years</h1>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark customNav">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -42,7 +42,7 @@
 <!--TODO : cancellare bordi e fare script con dimensioni (si adattano)-->
 
 <h2>Average family health expenditure</h2>
-<h3>Per category</h3>
+<h4><strong>Per category</strong></h4>
 
 <div class="container-fluid">
     <div class="row">
@@ -63,7 +63,7 @@
         <br>
         Below the average family expenditure relative to the whole healthcare is shown (data from ISTAT).</p>
     </div>
-    <h3>Aggregate</h3>
+    <h4><strong>Aggregate</strong></h4>
     <div class="row">
         <!--<div class="col-6">
             <p>The above graphs show the average monthly expenditure (so €/month) for italian families, distinguishing between three categories
@@ -119,6 +119,7 @@
 
         yAxis1.selectAll(".tick text")
             .attr("font-size", "25")
+            .style("font-family", "Fira Sans");
 
         // Add X axis
         const x1 = d3.scaleTime()
@@ -133,7 +134,8 @@
 
         xAxis1.selectAll(".tick text")
             .attr("font-size", "20")
-            .attr("transform", "rotate(-45)translate(-50,0)");
+            .attr("transform", "rotate(-45)translate(-50,0)")
+            .style("font-family", "Fira Sans");
 
 
     const svg2 = d3.select("#line2")
@@ -155,7 +157,8 @@
             .call(yAxisGenerator2);
 
         yAxis2.selectAll(".tick text")
-            .attr("font-size", "25");
+            .attr("font-size", "25")
+            .style("font-family", "Fira Sans");
 
         var list2 = d3.select('#years'); // TODO da fare dropdown
 
@@ -172,7 +175,8 @@
 
         xAxis2.selectAll(".tick text")
             .attr("font-size", "20")
-            .attr("transform", "rotate(-45)translate(-50,0)");
+            .attr("transform", "rotate(-45)translate(-50,0)")
+            .style("font-family", "Fira Sans");
 
 
     const svg3 = d3.select("#line3")
@@ -193,7 +197,8 @@
             .call(yAxisGenerator3);
 
         yAxis3.selectAll(".tick text")
-            .attr("font-size", "25");
+            .attr("font-size", "25")
+            .style("font-family", "Fira Sans");
 
         // Add X axis
         const x3 = d3.scaleTime()
@@ -208,7 +213,8 @@
 
         xAxis3.selectAll(".tick text")
             .attr("font-size", "20")
-            .attr("transform", "rotate(-45)translate(-50,0)");
+            .attr("transform", "rotate(-45)translate(-50,0)")
+            .style("font-family", "Fira Sans");
 
 
     const svg4 = d3.select("#line4")
@@ -229,7 +235,8 @@
             .call(yAxisGenerator4);
 
         yAxis4.selectAll(".tick text")
-            .attr("font-size", "25");
+            .attr("font-size", "25")
+            .style("font-family", "Fira Sans");
 
         // Add X axis
         const x4 = d3.scaleTime()
@@ -244,13 +251,14 @@
 
         xAxis4.selectAll(".tick text")
             .attr("font-size", "30")
-            .attr("transform", "rotate(-45)translate(-50,0)");
+            .attr("transform", "rotate(-45)translate(-50,0)")
+            .style("font-family", "Fira Sans");
 
         var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip");
 
         //medicines, pharmaceuticals, medical equipment
-        allGroup1=["mpm", "pharmaceutical products", "other medical products", "therapeutic equipment and apparatus"];
+        allGroup1=["mpm", "pharmaceutical products", "other medical products", "therapeutic equipment"];
         allGroup2=["outpatient services", "medical services", "dental services", "paramedical services"];
         allGroup3=["hospital services"];
         allGroup4=["health services and health expenditure"];
@@ -280,7 +288,8 @@
             // A color scale: one color for each group
             const myColor = d3.scaleOrdinal()
                 .domain(allGroup)
-                .range(d3.schemeSet2);
+                .range(['#682C0E', '#C24914', '#FC8621', '#f5c83c']);
+
 
 
             // Add the lines
@@ -295,10 +304,13 @@
                 .attr("stroke", d => myColor(d.name))
                 .style("stroke-width", 4)
                 .style("fill", "none")
-                .style("opacity", 1)
+                .style("opacity", 0)
+                .transition()
+                .duration(800)
+                .style("opacity", 1);
 
             // Add the points
-            svg
+            var svg_prime = svg
                 // First we need to enter in a group
                 .selectAll("myDots")
                 .data(dataReady)
@@ -312,25 +324,32 @@
                 .attr("cx", d => x(d.time))
                 .attr("cy", d => y(d.value))
                 .attr("r", 5)
-                .attr("stroke", "white")
-                .on("mouseover", function (event, d) {
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    tooltip.html("<strong>" + d.name + "</strong>" + "<br/>" + "Avg expense: " +
-                        d.value + "&#8364;")
-                        .style("left", (event.pageX - 70) + "px")
-                        .style("top", (event.pageY - 70) + "px")
-                        .style("position", "absolute");
-                })
-                .on("mouseout", function (d) {
-                    tooltip.transition()
-                        .duration(500)
-                        .style("opacity", 0);
-                })
+                .attr("stroke", "white");
+
+            svg_prime
+                .style("opacity", 0)
+                .transition()
+                .duration(800)
+                .style("opacity", 1);
+
+            svg_prime.on("mouseover", function (event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html("<strong>" + d.name + "</strong>" + "<br/>" + "Avg expense: " +
+                    d.value + "&#8364;")
+                    .style("left", (event.pageX - 70) + "px")
+                    .style("top", (event.pageY - 70) + "px")
+                    .style("position", "absolute");
+            })
+            .on("mouseout", function (d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
 
             // Add a legend (interactive)
-            svg
+            var svg_legend = svg
                 .selectAll("myLegend")
                 .data(dataReady)
                 .join('g')
@@ -340,7 +359,7 @@
                         return 15
                     }
                     else if(i===1 || i===3){
-                        return (300)
+                        return (350)
                     }
                 })
                 .attr('y', function(d,i) {
@@ -353,18 +372,24 @@
                 })
                 .text(d => d.name)
                 .style("fill", d => myColor(d.name))
-                .style("font-size", "1.75rem")
-                .on("click", function(event,d){
-                    if(allGroup.length>1) {
-                        // is the element currently visible ?
-                        let cl = "." + d.name.replace(/\s/g, '_')
-                        //console.log(cl)
-                        let currentOpacity = d3.selectAll(cl).style("opacity")
-                        //console.log(currentOpacity)
-                        // Change the opacity: from 0 to 1 or from 1 to 0
-                        d3.selectAll(cl).transition().style("opacity", currentOpacity === "1" ? "0" : "1")
-                    }
-                })
+                .style("font-size", "1.75rem");
+
+            svg_legend.style("opacity", 0)
+                .transition()
+                .duration(800)
+                .style("opacity", 1);
+
+            svg_legend.on("click", function(event,d){
+                if(allGroup.length>1) {
+                    // is the element currently visible ?
+                    let cl = "." + d.name.replace(/\s/g, '_')
+                    //console.log(cl)
+                    let currentOpacity = d3.selectAll(cl).style("opacity")
+                    //console.log(currentOpacity)
+                    // Change the opacity: from 0 to 1 or from 1 to 0
+                    d3.selectAll(cl).transition().style("opacity", currentOpacity === "1" ? "0" : "1")
+                }
+            })
 
         });
     }
