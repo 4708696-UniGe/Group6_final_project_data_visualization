@@ -9,6 +9,11 @@ h1 {
     font-variant: small-caps;
     background-color: #49796a;
     color: white;
+
+}
+
+h2 {
+    padding-top: 10px;
 }
 
 body {
@@ -22,11 +27,12 @@ body {
 
 .tooltip {
     text-align: left;
+    font-family: "Fira Sans";
     padding: 10px;
-    background-color: #6b747c;
+    background-color: #414f4b;
     color: white;
     border: 0px;
-    border-radius: 8px;
+    border-radius: 3px;
     pointer-events: none;
     word-wrap: revert;
 }
@@ -42,10 +48,27 @@ body {
     font-family: "Fira Sans";
 }
 
-.explanatory_text {
+.explanatory_text_health{
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     padding: 5px 50px 15px;
+}
+
+.mpm {
+    font-size: 1rem;
+}
+
+.source {
+    float: right;
+    font-size: 1.2rem;
+}
+
+.explanatory_text_smoking {
+    padding: 10px 0 0 24px;
+}
+
+.explanatory_text_home {
+    padding-top: 10px;
 }
 
 .healthline4 {
@@ -66,5 +89,5 @@ body {
     background-color: #414f4b;
     color: white;
     border-radius: 3px;
-    margin: 5px;
+    margin: 5px 5px 20px;
 }

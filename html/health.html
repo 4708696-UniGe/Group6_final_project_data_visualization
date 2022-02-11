@@ -56,14 +56,15 @@
             <svg id="line3" ></svg>
         </div>
     </div>
-    <div class="row explanatory_text">
-        <br>
-    <p>*mpm here stands for medicines, pharmaceuticals, medical equipment
-        <br>
-        The above graphs show the average monthly expenditure (so €/month) for italian families, distinguishing between three categories (mpm*, outpatient services, hospital services)
-        and with the possibility to see also data relative to subcategories, when present.
-        <br>
-        Below the average family expenditure relative to the whole healthcare is shown (data from ISTAT).</p>
+    <div class="row explanatory_text_health">
+        <p class = "mpm">
+            *mpm: medicines, pharmaceuticals, medical equipment
+        </p>
+        <p>
+            The above graphs show the average monthly expenditure [€/month] for italian families, distinguishing between
+            three aggregate categories (mpm, outpatient services, hospital services) and their subgroups, if present.
+            The figure below illustrates the average family expenditure regarding the total aggregate for healthcare.
+        </p>
     </div>
     <h4><strong>Aggregate</strong></h4>
     <div class="row">
@@ -77,6 +78,9 @@
             <svg id="line4" ></svg>
         </div>
     </div>
+    <p class = "source">
+        <i>Source: ISTAT</i>
+    </p>
 </div>
 
 
@@ -252,7 +256,7 @@
             .attr("transform", `translate(0,${height})`);
 
         xAxis4.selectAll(".tick text")
-            .attr("font-size", "30")
+            .attr("font-size", "25")
             .attr("transform", "rotate(-45)translate(-50,0)")
             .style("font-family", "Fira Sans");
 
@@ -372,7 +376,14 @@
                         return 10
                     }
                 })
-                .text(d => d.name)
+                .text(function (d) {
+                    if(d.name === "mpm") {
+                        return d.name + "*";
+                    }
+                    else {
+                        return d.name;
+                    }
+                })
                 .style("fill", d => myColor(d.name))
                 .style("font-size", "1.75rem");
 

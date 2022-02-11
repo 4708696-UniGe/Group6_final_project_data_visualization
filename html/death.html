@@ -39,7 +39,8 @@
     </div>
 </nav>
 
-<h2>Death Causes divided by year and region</h2>
+<h2>Death Causes divided by year and region, interval Jan-Apr</h2>
+<h5>data shown as relative percentage</h5>
 
 <div class="container-fluid">
     <div class="row">
@@ -65,10 +66,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-10 " >
+        <div class="col-10 pr-0" >
             <svg id="groupedBar1" ></svg>
         </div>
-        <div class="col-2 " >
+        <div class="col-2 pl-0" >
             <svg id="legend1" ></svg>
         </div>
     </div>
@@ -118,7 +119,7 @@
 
     //2.set dimensions within svg following Mike Bostok's convention
     const wtot = 800;
-    const htot = 330;
+    const htot = 290;
     const margin = { top: 10, right: 60, bottom: 110, left: 60 },
         width = wtot - margin.left - margin.right,
         height = htot - margin.top - margin.bottom;
@@ -175,10 +176,17 @@
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle")
 
+    svgLegend.append("text")
+        .text("Scroll over the graph to zoom in.")
+        .attr("x", 78 + size*1.2)
+        .attr("y", 230)
+        .attr("font-size", "13")
+
+
 
     var zoom = d3.zoom()
         .scaleExtent([1, 5])
-        .translateExtent([[-40, 0], [width, height+100]])
+        .translateExtent([[-35, 0], [width, height+100]])
         .on('zoom', handleZoom);
 
     function initZoom() {
@@ -250,7 +258,7 @@
 
             // Add Y axis
             const y = d3.scaleLinear()
-                .domain([0, d3.max(data, function(d) {return parseInt(d[subgroups[2]]); })])
+                .domain([0, d3.max(data, function(d) {return parseInt(d[subgroups[2]]); }) +1 ])
                 .range([height, 0]);
 
             var yAxis = svg.append("g")
@@ -289,7 +297,7 @@
                     .selectAll("rect")
                     .data(function (d) {
                         return subgroups.map(function (key) {
-                            return {key: key, value: d[key]};
+                            return {key: key, value: d[key], cause: d["Cause of death"]};
                         });
                     });
 
@@ -306,8 +314,13 @@
                             tooltip.transition()
                                 .duration(200)
                                 .style("opacity", .9);
-                            tooltip.html("<strong>" + "Number of deaths" + "</strong>" + "<br/>" +
-                                d.value)
+
+                            var str = d.key.split(" ")
+                            var str1 = str.pop()
+                            var str2 = d.key.replace(str1, "")
+
+                            tooltip.html("<strong>" + d.cause + " - " + str2 + "</strong>" + "<br/>" +
+                                d.value + "%")
                                 .style("left", (event.pageX - 70) + "px")
                                 .style("top", (event.pageY - 100) + "px")
                                 .style("position", "absolute");
