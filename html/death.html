@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../d3.js"></script>
 </head>
 <body>
-<h1>Elderly mortality over the years</h1>
+<h1>A look at the health of the elderly in Italy</h1>
 
 <nav class="navbar navbar-expand-lg navbar-dark customNav">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -39,9 +39,9 @@
     </div>
 </nav>
 
-<h2>Death Causes divided by year and region, interval Jan-Apr</h2>
-<h5>data shown as relative percentage</h5>
-
+<h2>Death causes by year and region, Jan-Apr 2016-2020</h2>
+<h6>data shown as relative percentage</h6>
+<hr>
 <div class="container-fluid">
     <div class="row">
         <div class="col">
@@ -226,7 +226,7 @@
                     console.log("aaaa");
             }
 
-            console.log(subgroups)
+            //console.log(subgroups)
 
             //data = data.filter(data => data.year.includes(year));
             data = data.filter(function(d){ return d["Cause of death"] !== "Total" })
@@ -234,7 +234,7 @@
 
             // List of groups = species here = value of the first column called group -> I show them on the X axis
             let groups = data.map(d => d["Cause of death"])
-            console.log(groups)
+            //console.log(groups)
 
             // Add X axis
             const x = d3.scaleBand()
@@ -253,8 +253,8 @@
                 .attr("text-anchor", "end")
                 .style("font-family", "Fira Sans");
 
-            console.log(subgroups[2]);
-            console.log(d3.max(data, function(d) {return parseInt(d[subgroups[2]]); }))
+            //console.log(subgroups[2]);
+            //console.log(d3.max(data, function(d) {return parseInt(d[subgroups[2]]); }))
 
             // Add Y axis
             const y = d3.scaleLinear()
@@ -376,6 +376,6 @@
     initZoom();
 
 </script>
-
+<hr>
 </body>
 </html>

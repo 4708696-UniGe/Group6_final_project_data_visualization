@@ -25,6 +25,12 @@ body {
     font-size: 1.4rem;
 }
 
+
+#legend1{
+    padding-left: 10px;
+    padding-right: 40px;
+}
+
 .tooltip {
     text-align: left;
     font-family: "Fira Sans";
@@ -64,11 +70,15 @@ body {
 }
 
 .explanatory_text_smoking {
-    padding: 10px 0 0 24px;
+    padding: 10px 0 0 26px;
+    text-align: justify;
 }
 
 .explanatory_text_home {
     padding-top: 10px;
+    padding-right: 5rem;
+    text-align: justify;
+
 }
 
 .healthline4 {
